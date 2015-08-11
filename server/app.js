@@ -21,8 +21,14 @@ var db = low(jsonFileURL);
 
 var express = require('express');
 var config = require('./config/environment');
+var stats = require('./components/statistics.js');
+
 // Setup server
 var app = express();
+
+//save stats
+app.use(stats());
+
 var server = require('http').createServer(app);
 require('./config/express')(app);
 require('./routes')(app);

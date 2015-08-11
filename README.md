@@ -4,7 +4,7 @@ Adding routes and sample replyes more complex than https://github.com/typicode/j
 ###How to use
  - Clone the repository
  - run ```npm install```, ```bower install``` to get all packages
- - Config details in ```server/config/local.env.js```
+ - Config details in ```server/config/environment/```
  - Start with ```node server/app.js```
  - Adding a route : ```/ujs-setup/addrequest```
  - Show list of routes: ```/ujs-setup/showlist```
@@ -17,6 +17,7 @@ For development start ```nodemon DEBUG=http ./server/app.js --debug --watch```
 
 
 ### Todo
+ - Add better UI for adding results
  - Add regexps in paths
  - Add faker module to generate JSON on reqiuest
  - Add static files support

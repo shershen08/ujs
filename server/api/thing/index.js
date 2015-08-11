@@ -10,13 +10,10 @@ var app = express.Router();
 var debug = require('debug')('http');
 var url = require('url');
 var _ = require('lodash');
-var jsonFileURL = 'db/db.json';
-var routesName = 'routes';
-
 var io = require('socket.io')();
 
 var low = require('lowdb');
-var db = low(jsonFileURL);
+var db = low(config.appconfig.jsonFileURL);
 
 
 

@@ -8,5 +8,10 @@ module.exports = {
     uri: 'mongodb://localhost/jsonconfserver-dev'
   },
 
+  appconfig : {
+  	jsonFileURL     : 'db/db.json',
+  	routesName		: 'routes'
+  },
+
   seedDB: true
 };

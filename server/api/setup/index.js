@@ -3,18 +3,20 @@
 var express = require('express');
 var config = require('../../config/environment');
 var controller = require('./setup.controller');
+
+
+
 var debug = require('debug')('http');
 
 var app = express.Router();
 
 var url = require('url');
 var _ = require('lodash');
-var jsonFileURL = 'db/db.json';
-var routesName = 'routes';
 var path = require('path');
 var fs = require('fs');
 var low = require('lowdb');
-var db = low(jsonFileURL);
+
+var db = low(config.appconfig.jsonFileURL);
 
 global.appRoot = path.resolve(__dirname, '../../../');
 
@@ -25,10 +27,11 @@ function getQuery(r){
 }
 
 var routeObject = {
-	route: '',
+	  route: '',
     added: 0,
     content: '',
-    views: 0
+    views: 0,
+    datatype : 'application/json'
 };
 
 /**
@@ -43,7 +46,7 @@ app.get('/addrequest', function(request, res){
   debug('query: ', query);
 
   var newTime = (new Date()).getTime();
-  db(routesName).push({ route: query.route,
+  db(config.appconfig.routesName).push({ route: query.route,
                         added: newTime,
                         content: query.content,
                         views: 0});
@@ -75,7 +78,7 @@ app.get('/clearlist', function(request, res){
 
   debug('/----------------------/clearlist/-------------------/');
     
-  db(routesName).remove();
+  db(config.appconfig.routesName).remove();
 
   res.writeHead(200, {'Content-Type': 'text/html'});
   res.write('Routes cleared ');
@@ -88,10 +91,9 @@ app.get('/showlist', function(request, res){
   var query = getQuery(request);
 
   debug('/----------------------/showlist/-------------------/');
-  debug('jsonFileURL: ', jsonFileURL);
-  debug('query: ', query);
+  debug('config: ', config.appconfig);
     
-  var filePath = path.join(global.appRoot, jsonFileURL);
+  var filePath = path.join(global.appRoot, config.appconfig.jsonFileURL);
     
   fs.readFile(filePath, {encoding: 'utf-8'}, function(err,data){
 
