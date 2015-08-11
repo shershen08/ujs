@@ -1,3 +1,7 @@
+/**
+ * @fileOverview 
+ */
+
 'use strict';
 
 var express = require('express');
@@ -15,11 +19,11 @@ var io = require('socket.io')();
 var low = require('lowdb');
 var db = low(config.appconfig.jsonFileURL);
 
-
-
 var router = express.Router();
 
+/**
 
+*/
 app.get('/*', function(request, res){
 
   debug('/----------------------/api/-------------------/');
@@ -36,12 +40,18 @@ app.get('/*', function(request, res){
     debug('200 - route ' + rRoute + ' found in the library');
     res.writeHead(200, {'Content-Type': 'application/json'});
     res.write(parseResult.content);
+    res.end();
   } else {
     debug('404 - route ' + rRoute + ' not found');
-    res.writeHead(404, {'Content-Type': 'text/html'});   
+    //res.writeHead(404, {'Content-Type': 'text/html'});   
+
+    res.render('appnotification', { pageTitle : '404',
+                                    notificationTitle: '404',
+                                    notificationDetails : 'Route not found' });
+
   }
 
-   res.end();
+   
   
 });
 

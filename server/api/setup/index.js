@@ -1,3 +1,7 @@
+/**
+ * @fileOverview 
+ */
+
 'use strict';
 
 var express = require('express');
@@ -20,12 +24,22 @@ var db = low(config.appconfig.jsonFileURL);
 
 global.appRoot = path.resolve(__dirname, '../../../');
 
+
+/**
+
+@name
+@param
+*/
 function getQuery(r){
   var url_parts = url.parse(r.url, true);
   var query = url_parts.query;
   return query;
 }
 
+
+/**
+
+*/
 var routeObject = {
 	  route    : '',
     added    : 0,
@@ -34,11 +48,18 @@ var routeObject = {
     datatype : 'application/json'
 };
 
+
 /**
 
+*/
+app.get('/', function(request, res){
+ res.render('adminindex', { pageTitle : 'UIJS cofigration page' });
+});
+
+/**
 
 */
-app.get('/addrequest', function(request, res){
+app.get('/api/addrequest', function(request, res){
 
   var query = getQuery(request);
   
@@ -70,7 +91,7 @@ app.get('/addrequest', function(request, res){
 });
 
 
-app.get('/clearstats', function(request, res){
+app.get('/api/learstats', function(request, res){
 
   debug('/----------------------/clearstats/-------------------/');
     
@@ -84,7 +105,11 @@ app.get('/clearstats', function(request, res){
   
 });
 
-app.get('/clearlist', function(request, res){
+
+/**
+
+*/
+app.get('/api/clearlist', function(request, res){
 
   debug('/----------------------/clearlist/-------------------/');
     
@@ -96,7 +121,11 @@ app.get('/clearlist', function(request, res){
   
 });
 
-app.get('/showlist', function(request, res){
+
+/**
+
+*/
+app.get('/api/showlist', function(request, res){
 
   var query = getQuery(request);
 

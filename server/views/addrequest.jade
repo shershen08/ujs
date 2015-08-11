@@ -1,21 +1,19 @@
-doctype html
-html(lang="en")
-  head
-    title= pageTitle
-  body
-    h1 pageTitle
-    #container.col-6
-    
-    .form-block
-      input(name='route-title', class='')
-    .form-block
-      input(name='route-url', class='')
-    .form-block
-      select(name="route-datatype")
-        -for(var i = 1;i<10;i++){
-        option(value="#{i}") Some value for #{i}
-        -}
-    .form-block
-      textarea(cols=5, rows=10, name='reply-content', class='')
-    .form-block
-      button(type='button', class='').Save route
+// form to add routes
+
+.form-block
+  label()='Route title'
+  input(name='route-title', class='', placeholder='My new route')
+.form-block
+  label()='Route url'
+  input(name='route-url', class='', placeholder='Info/Items/42.json')
+.form-block
+  label()='Route reply datatype'
+  select(name="route-datatype")
+    -for(var i = 1;i<10;i++){
+    option(value="#{i}")  #{i}
+    -}
+.form-block
+  label()='Reply content'
+  textarea(cols=5, rows=10, name='reply-content', class='')
+.form-block
+  button(type='button', class='btn btn-primary')='Save route'

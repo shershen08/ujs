@@ -1,5 +1,5 @@
 /**
- * Main application file
+ * @fileOverview Main application file
  */
 
 'use strict';

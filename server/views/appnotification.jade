@@ -1,0 +1,14 @@
+doctype html
+html(lang="en")
+  head
+    link(href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css', rel='stylesheet')
+    title= pageTitle
+  body
+    h1= pageTitle
+    #container.col-12
+    
+    .jumbotron
+      h1= notificationTitle
+      p.lead= notificationDetails
+
+    include ./includes/footer.jade

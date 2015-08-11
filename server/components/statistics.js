@@ -10,7 +10,9 @@ var debug = require('debug')('http');
 // middleware enabled or not
 var enabled = true;
 
+/**
 
+*/
 var stats = function(onoff) {
 
 	enabled = (onoff == 'on') ? true : false;

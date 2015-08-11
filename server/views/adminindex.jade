@@ -1,0 +1,22 @@
+doctype html
+html(lang="en")
+  head
+    title= pageTitle
+    link(href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css', rel='stylesheet')
+  body
+    h1= pageTitle
+
+    #container.col-8
+
+    // switch menu
+    .app-menu
+        button(class='btn btn-default')= 'Add route'
+        button(class='btn btn-default')= 'Show routes'
+
+    .app-block.app-addrequest
+      include ./addrequest.jade
+
+    .app-block.app-showlist
+      include ./showlist.jade
+
+    include ./includes/footer.jade
