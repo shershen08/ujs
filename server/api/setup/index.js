@@ -1,10 +1,118 @@
 'use strict';
 
 var express = require('express');
+var config = require('../../config/environment');
 var controller = require('./setup.controller');
+var debug = require('debug')('http');
 
-var router = express.Router();
+var app = express.Router();
 
-router.get('/', controller.index);
+var url = require('url');
+var _ = require('lodash');
+var jsonFileURL = 'db/db.json';
+var routesName = 'routes';
+var path = require('path');
+var fs = require('fs');
+var low = require('lowdb');
+var db = low(jsonFileURL);
 
-module.exports = router;
+global.appRoot = path.resolve(__dirname, '../../../');
+
+function getQuery(r){
+  var url_parts = url.parse(r.url, true);
+  var query = url_parts.query;
+  return query;
+}
+
+var routeObject = {
+	route: '',
+    added: 0,
+    content: '',
+    views: 0
+};
+
+/**
+
+
+*/
+app.get('/addrequest', function(request, res){
+
+  var query = getQuery(request);
+  
+  debug('/----------------------/addrequest/-------------------/');
+  debug('query: ', query);
+
+  var newTime = (new Date()).getTime();
+  db(routesName).push({ route: query.route,
+                        added: newTime,
+                        content: query.content,
+                        views: 0});
+
+  res.writeHead(200, {'Content-Type': 'text/html'});
+  res.write('Route added\n');
+  res.write('route: ' + query.route + '\n');
+  res.write('content: ' + query.content);
+  res.end();
+
+});
+
+
+//todo add 'views' -> 0
+//
+app.get('/clearstats', function(request, res){
+/*
+  debug('/----------------------/clearstats/-------------------/');
+    
+  db(routesName).remove();
+
+  res.writeHead(200, {'Content-Type': 'text/html'});
+  res.write('Routes cleared ');
+  res.end();
+  */
+});
+
+app.get('/clearlist', function(request, res){
+
+  debug('/----------------------/clearlist/-------------------/');
+    
+  db(routesName).remove();
+
+  res.writeHead(200, {'Content-Type': 'text/html'});
+  res.write('Routes cleared ');
+  res.end();
+  
+});
+
+app.get('/showlist', function(request, res){
+
+  var query = getQuery(request);
+
+  debug('/----------------------/showlist/-------------------/');
+  debug('jsonFileURL: ', jsonFileURL);
+  debug('query: ', query);
+    
+  var filePath = path.join(global.appRoot, jsonFileURL);
+    
+  fs.readFile(filePath, {encoding: 'utf-8'}, function(err,data){
+
+     if (!err){
+
+      if(query.html){
+         res.writeHead(200, {'Content-Type': 'text/html'});
+      }
+      if(query.json){
+         res.writeHead(200, {'Content-Type': 'application/json'});
+      }
+
+      res.write(data);
+      res.end();
+
+     }else{
+      console.log(err);
+     }
+  });   
+  
+});
+
+
+module.exports = app;

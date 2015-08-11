@@ -6,6 +6,18 @@
 
 // Set default node environment to development
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
+var debug = require('debug')('http');
+
+var dr = require('dynamic-routes');
+var url = require('url');
+var _ = require('lodash');
+
+//JSON db configuration
+
+var low = require('lowdb');
+var jsonFileURL = 'db/db.json';
+var db = low(jsonFileURL);
+
 
 var express = require('express');
 var config = require('./config/environment');
