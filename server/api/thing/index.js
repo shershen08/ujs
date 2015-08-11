@@ -28,7 +28,7 @@ app.get('/*', function(request, res){
 
   debug('requestRoute: ', rRoute);
     
-  var parseResult = db(routesName).find({ route: ('/' + rRoute)});
+  var parseResult = db(config.appconfig.routesName).find({ route: ('/' + rRoute)});
   
   debug('parseResult ', parseResult);
 

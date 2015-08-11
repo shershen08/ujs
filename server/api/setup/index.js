@@ -27,10 +27,10 @@ function getQuery(r){
 }
 
 var routeObject = {
-	  route: '',
-    added: 0,
-    content: '',
-    views: 0,
+	  route    : '',
+    added    : 0,
+    content  : '',
+    views    : 0,
     datatype : 'application/json'
 };
 
@@ -43,35 +43,45 @@ app.get('/addrequest', function(request, res){
   var query = getQuery(request);
   
   debug('/----------------------/addrequest/-------------------/');
-  debug('query: ', query);
+  debug('Query: ', query);
 
-  var newTime = (new Date()).getTime();
-  db(config.appconfig.routesName).push({ route: query.route,
-                        added: newTime,
-                        content: query.content,
-                        views: 0});
 
   res.writeHead(200, {'Content-Type': 'text/html'});
-  res.write('Route added\n');
-  res.write('route: ' + query.route + '\n');
-  res.write('content: ' + query.content);
+
+
+  if(query.route && query.content) {
+
+    var newTime = (new Date()).getTime();
+    db(config.appconfig.routesName).push({ route: query.route,
+                          added: newTime,
+                          content: query.content,
+                          views: 0});
+
+    res.write('Route added\n');
+    res.write('route: ' + query.route + '\n');
+    res.write('content: ' + query.content);
+    
+  } else {
+    res.write('Route path or content are not provided!\n');
+  }
+
   res.end();
 
 });
 
 
-//todo add 'views' -> 0
-//
 app.get('/clearstats', function(request, res){
-/*
+
   debug('/----------------------/clearstats/-------------------/');
     
-  db(routesName).remove();
+  db(config.appconfig.routesName).map(function(item){
+    item.views = 0;
+  });
 
   res.writeHead(200, {'Content-Type': 'text/html'});
-  res.write('Routes cleared ');
+  res.write('All routes stats is cleared ');
   res.end();
-  */
+  
 });
 
 app.get('/clearlist', function(request, res){
@@ -91,7 +101,6 @@ app.get('/showlist', function(request, res){
   var query = getQuery(request);
 
   debug('/----------------------/showlist/-------------------/');
-  debug('config: ', config.appconfig);
     
   var filePath = path.join(global.appRoot, config.appconfig.jsonFileURL);
     

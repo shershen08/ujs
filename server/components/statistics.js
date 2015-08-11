@@ -11,7 +11,7 @@ var debug = require('debug')('http');
 var enabled = true;
 
 
-var stats = function() {
+var stats = function(onoff) {
 
 	enabled = (onoff == 'on') ? true : false;
     
