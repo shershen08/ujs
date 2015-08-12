@@ -1,0 +1,39 @@
+
+doctype html
+html(lang="en")
+  head
+    title= pageTitle
+    link(href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css', rel='stylesheet')
+    link(href='dev-app.css', rel='stylesheet')
+    script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js')
+  body
+
+    .container
+      .header
+        include ./includes/appmenu.jade
+        
+        h3.text-muted=pageTitle
+
+      ul.nav.nav-tabs
+        li
+          a(href='/ujs-setup/api/clearlist')='Clear routes'
+        li
+          a(href='/ujs-setup/api/clearstats')='Clear stats'
+
+      .row.col-lg-12
+        .app-block.app-showlist
+          .routes-list
+            each val, index in listOfRoutes
+              .route-item.row
+                .route-details.col-md-4
+                  span(class='badge')=(index+1)
+                  code=val.route
+                .route-stats.col-md-4
+                  p=val.views
+                .route-option.col-md-4
+                  button(type='button', class='btn btn-default')='Clone route'
+                  button(type='button', class='btn btn-default')='Clear stats'
+                  button(type='button', class='btn btn-danger')='Remove route'
+
+      include ./includes/footer.jade
+      script

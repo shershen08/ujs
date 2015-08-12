@@ -1,0 +1,35 @@
+doctype html
+html(lang="en")
+  head
+    title= pageTitle
+    link(href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css', rel='stylesheet')
+    link(href='dev-app.css', rel='stylesheet')
+  body
+
+    .container
+      .header
+        include ./includes/appmenu.jade
+        
+        h3.text-muted=pageTitle
+
+      .row.col-lg-12
+        form.app-block.app-addrequest(method='post', action="/ujs-setup/api/addrequest")
+            .form-group
+              label()='Route title'
+              input(name='route-title', class='form-control', placeholder='My new route')
+            .form-group
+              label()='Route url'
+                span()=' *'
+              input(name='route-url', required='true', class='form-control', placeholder='Info/Items/42.json')
+            .form-group
+              label()='Route reply datatype'
+              select(name='route-datatype', class='form-control')
+                each val, index in dataTypes
+                  option(value=val.title)=val.title
+            .form-group
+              label()='Reply content'
+              textarea(cols=5, rows=10, name='reply-content', class='form-control')
+            .form-group
+              button(type='submit', class='btn btn-primary', id='save-route')='Save route'
+
+      include ./includes/footer.jade
