@@ -1,3 +1,4 @@
+
 ##UI JSON Server (UJS)
 Adding routes and sample replyes a bit more complex than https://github.com/typicode/json-server.
 
@@ -19,7 +20,4 @@ For development start ```nodemon DEBUG=http ./server/app.js --debug --watch```
  - Add regexps in paths
  - Add faker module to generate JSON on reqiuest
  - Add static files support
-
-
-
 
